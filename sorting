@@ -27,8 +27,24 @@ def insertion_sort(unsorted_list):
             unsorted_list[search_index]=insert_value
 
 
+def selection_sort(unsorted_list):
+    size_of_list=len(unsorted_list)
+    for i in range(size_of_list):
+        small=i
+        for j in range(i+1,size_of_list):
+            if unsorted_list[j]<unsorted_list[small]:
+                small=j
+        temp=unsorted_list[i]
+        unsorted_list[i]=unsorted_list[small]
+        unsorted_list[small]=temp
+
+
+
+
+
 
 my_list=[4,3,2,1]
 #bubble_sort1(my_list)
-insertion_sort(my_list)
+#insertion_sort(my_list)
+selection_sort(my_list)
 print(my_list)
