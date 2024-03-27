@@ -34,7 +34,7 @@ def quick_select(array_list,start,end,k):
 
 
 
-def main:
+def main():
     list1=[3,1,10,4,6,5]
     x=quick_select(list1,0,5,1)
     print(x)
