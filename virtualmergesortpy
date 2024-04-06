@@ -1,0 +1,45 @@
+def mergedVirtualSeq(theSeq,left,right,end,tmpArray):
+    # [left..right][right..end]
+    a=left
+    b=right
+    m=0
+    while a<right and b<end:
+        if theSeq[a]<theSeq[b]:
+            tmpArray[m]=theSeq[a]
+            a+=1
+        else:
+            tmpArray[m]=theSeq[b]
+            b+=1
+        m+=1
+
+    while a <right:
+        tmpArray[m]=theSeq[a]
+        a+=1
+        m+=1
+    while b<end:
+        tmpArray[m]=theSeq[b]
+        b+=1
+        m+=1
+
+    for i in range(end-left):
+        theSeq[i+left]=tmpArray[i]
+
+
+
+
+def recMergedSort(theSeq,first,last,tmpArray):
+    if first==last:
+        return
+    else:
+        mid=(first+last)//2
+
+        recMergedSort(theSeq,first,mid,tmpArray)
+        recMergedSort(theSeq,mid+1,last,tmpArray)
+
+        mergedVirtualSeq(theSeq,first,mid+1,last+1,tmpArray)
+
+from array import array
+t=[9,8,7,6,5,4,3,2]
+tmp=[0]*10
+recMergedSort(t,0,len(t)-1,tmp)
+print(t)
