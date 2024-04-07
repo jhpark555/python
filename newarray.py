@@ -1,5 +1,18 @@
 import ctypes
 
+class _ArrayIterator:
+    def __init__(self,theArray):
+        self._arrayRef=theArray
+        self._curNdx=0
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self._curNdx <len(self._arrayRef):
+            entry=self._arrayRef[self._curNdx]
+            self._curNdx +=1
+            return entry
+        else :
+            raise StopIteration
 class Array:
     def __init__(self,size):
         assert size >0 ,"Array size must be >0 "
@@ -21,19 +34,7 @@ class Array:
     def __iter__(self):
         return _ArrayIterator(self._elements)
     
-class _ArrayIterator:
-    def __init__(self,theArray):
-        self._arrayRef=theArray
-        self._curNdx=0
-    def __iter__(self):
-        return self
-    def __next__(self):
-        if self._currNdx <len(self._arrayRef):
-            entry=self._arrayRef[self._curNdx]
-            self._curNdx +=1
-            return entry
-        else :
-            raise StopIteration
+
         
 class Array2D :
     def __init__(self,numRows,numCols):

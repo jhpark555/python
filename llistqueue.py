@@ -29,9 +29,9 @@ class _QueueNode:
         self.item=item
         self.next=None
 
-q=Queue()
-q.enqueue(10)
-q.enqueue(20)
-x=q.dequeue()
-y=q.dequeue()
-print(len(q),x,y)
+#q=Queue()
+#q.enqueue(10)
+#q.enqueue(20)
+#x=q.dequeue()
+#y=q.dequeue()
+#print(len(q),x,y)

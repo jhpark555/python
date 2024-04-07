@@ -36,9 +36,9 @@ class LinkedStack:
         self._size -=1
         return answer
     
-S=LinkedStack()
-S.push(3)
-S.push(4)
+#S=LinkedStack()
+#S.push(3)
+#S.push(4)
 
-print(S.pop())
+#print(S.pop())
 
