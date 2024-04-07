@@ -58,9 +58,9 @@ def addToSortedList(newList,newNode):
 
 
 class Node:
-    def __init__(self,data):
+    def __init__(self,data,next=None):
         self.data=data
-        self.next=None
+        self.next=next
 
 a=Node(23)
 b=Node(2)
@@ -75,7 +75,7 @@ c.next=d
 d.next=e
 e.next=f
 
-#new=Node(15)
+    
 
 llistInsertSort(a)
 
