@@ -27,9 +27,9 @@ class Queue:
         self._count -=1
         return item
     
-q=Queue(10)
-q.enqueue(1)
-q.enqueue(2)
-q.enqueue(3)
-q.enqueue(4)
-print(len(q))
+#q=Queue(10)
+#q.enqueue(1)
+#q.enqueue(2)
+#q.enqueue(3)
+#q.enqueue(4)
+#print(len(q))

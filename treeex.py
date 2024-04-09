@@ -1,3 +1,5 @@
+from arrayqueue import Queue
+
 class _BinTreeNode:
     def __init__(self,data):
         self.data=data
@@ -22,6 +24,24 @@ def postorderTrav(subtree):
         postorderTrav(subtree.right)
         print(subtree.data)
 
+def breadthFirstTrav(bintree):
+    q=Queue(10)
+    q.enqueue(bintree)
+    #print("*",bintree.data)
+
+    while not q.isEmpty():
+        node=q.dequeue()
+        print(node.data)
+
+        if node.left is not None:
+            q.enqueue(node.left)
+        if node.right is not None:
+            q.enqueue(node.right)
+
+
+
+
+
 t=_BinTreeNode('T')
 x=_BinTreeNode('X')
 c=_BinTreeNode('C')
@@ -45,4 +65,5 @@ r.right=m
 
 #preorderTrav(t)
 #inorderTrav(t)
-postorderTrav(t)
+#postorderTrav(t)
+breadthFirstTrav(t)
