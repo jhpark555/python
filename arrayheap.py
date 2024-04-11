@@ -33,9 +33,9 @@ class Maxheap:
         left=2*ndx+1
         right=2*ndx+2
         largest=ndx
-        if left< count and self._elements[left] >=self._elements[largest]:
+        if left< self._count and self._elements[left] >=self._elements[largest]:
             largest =left
-        elif right< count and self._elements[right]>=self._elements[largest]:
+        if right< self._count and self._elements[right]>=self._elements[largest]:
             largest =right
 
         if largest !=ndx:
@@ -43,8 +43,30 @@ class Maxheap:
             tmp=self._elements[ndx]
             self._elements[ndx]=self._elements[largest]
             self._elements[largest]=tmp
-            _shiftDown(largest)
+            self._shiftDown(largest)
+
+
+def simpleHeapSort(theSeq):
+    n=len(theSeq)
+    heap=Maxheap(n)
+    buff=Array(n)
+
+    for item in theSeq:
+        heap.add(item)
+
+    #for i in heap._elements:
+    #    print(i)
+
+    for i in range(n-1,-1,-1):       # extract from max value
+        theSeq[i]=heap.extract()
     
+
+list=[51,10,2,18,4,31,13,5,23,64,29]
+
+simpleHeapSort(list)
+print(list)
+
+
 
 m=Maxheap(20)
 m.add(100)
@@ -60,6 +82,6 @@ m.add(4)
 #m.add(101)
 #m.add(72)
 
-for i in m._elements:
-    if i is not None:
-        print(i)
+#for i in m._elements:
+#    if i is not None:
+#        print(i)
