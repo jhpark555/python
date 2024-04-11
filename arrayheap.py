@@ -23,7 +23,7 @@ class Maxheap:
 
     def _shiftUp(self,ndx):
         if ndx>0 :
-            parent = ndx//2
+            parent = (ndx-1)//2
             if self._elements[ndx] > self._elements[parent]:
                 tmp=self._elements[ndx]
                 self._elements[ndx]=self._elements[parent]
@@ -57,7 +57,8 @@ m.add(29)
 m.add(1)
 m.add(37)
 m.add(4)
-m.add(101)
+#m.add(101)
+#m.add(72)
 
 for i in m._elements:
     if i is not None:
