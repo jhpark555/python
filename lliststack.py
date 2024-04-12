@@ -22,7 +22,7 @@ class _StackNode:
     def __init__(self,item,link):
         self.item=item
         self.next=link
-
+'''
 s=Stack()
 s.push(10)
 s.push(20)
@@ -53,3 +53,4 @@ def isValidSource(srcfile):
                        (toekn==")" and left!="(") :
                         return False
     return s.isEmpty()
+'''

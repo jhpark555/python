@@ -59,6 +59,7 @@ def simpleHeapSort(theSeq):
 
     for i in range(n-1,-1,-1):       # extract from max value
         theSeq[i]=heap.extract()
+
     
 
 list=[51,10,2,18,4,31,13,5,23,64,29]
