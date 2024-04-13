@@ -57,11 +57,11 @@ class BSTMap:
         if subtree is None:
             return subtree
         elif target <subtree.key:
-            print("L",subtree.key)
+            #print("L",subtree.key)
             subtree.left=self._bstRemove(subtree.left,target)
             return subtree
         elif target > subtree.key:
-            print("R",subtree.key)
+            #print("R",subtree.key)
             subtree.right=self._bstRemove(subtree.right,target)
             return subtree
         else :
@@ -73,9 +73,9 @@ class BSTMap:
                 else :
                     return subtree.right
             else :
-                print("#",subtree.right.key)
+                #print("#",subtree.right.key)
                 successor = self._bstMinimum(subtree.right)
-                print("*",successor.key)
+                #print("*",successor.key)
                 subtree.key =successor.key
                 subtree.value=successor.value
                 subtree.right = self._bstRemove(subtree.right, successor.key)
@@ -159,4 +159,4 @@ T.add(37,37)
 
 T.remove(12)
 #T.inorder(T._root)
-T.__iter__()
+#T.__iter__()
