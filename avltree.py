@@ -35,6 +35,14 @@ class AVLMap:
         node =self._bstSearch(self._root,key)
         assert node is not None, "Invalid map key"
         return node.value
+    
+    def getheight(self,subtree):
+        if subtree is None:
+            return None
+        return subtree.taller            
+            
+            
+            
     def remove(self,key):
         #assert key in self, "Invalid map key"
         (self._root,tmp) =self._avlRemove(self._root,key)
@@ -163,5 +171,5 @@ A.add(80,80)
 A.add(120,120)
 A.add(28,28)
 A.add(35,35)
-A.remove(17)
+#A.remove(17)
 A.inorder(A._root)
