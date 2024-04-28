@@ -1,3 +1,4 @@
+from collections import deque
 class Node:
     def __init__(self,data):
         self.data=data
@@ -115,6 +116,23 @@ class Tree:
         print(current.data)
         self.inorder(current.right_child)
 
+
+    def breadth_traverse(self):
+        #list_of_nodes=[]
+        traversal_queue=deque([self.root_node])
+        while len(traversal_queue) >0:
+            node=traversal_queue.popleft()
+            print(node.data)
+            #list_of_nodes.append(node.data)
+
+            if node.left_child:
+                traversal_queue.append(node.left_child)   
+            if node.right_child:
+                traversal_queue.append(node.right_child)
+        #return list_of_nodes
+
+
+
 T=Tree()
 r=T.insert(5)
 r=T.insert(3)
@@ -124,9 +142,10 @@ r=T.insert(13)
 r=T.insert(12)
 #T.inorder(r)
 r=T.remove(9)
-T.inorder(r)
+#T.inorder(r)
 x=T.search(6)
-print('$',x)
+T.breadth_traverse()
+#print('$',x)
 
 
             
