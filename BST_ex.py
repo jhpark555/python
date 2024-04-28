@@ -4,7 +4,6 @@ class Node:
         self.value=value
         self.left=None
         self.right=None
-        self.parent=None
 class BinarySearchTree:
     def __init__(self):
         self.root=None
@@ -15,24 +14,19 @@ class BinarySearchTree:
             self.root=new_node           
             return
         current=self.root
-        current.parent=current
         while current is not None:
             if key < current.key:
-                if current.left is None:   
-                    current.parent=current                 
+                if current.left is None:               
                     current.left=new_node                    
                     return
                 else :
-                    current.parent=current
                     current=current.left
                 #print('#',current.key,self.parent.key)
             else:
-                if current.right is None:    
-                    current.parent=current                
+                if current.right is None:                
                     current.right=new_node                    
                     return
                 else :
-                    current.parent=current
                     current=current.right
                 #print('@',current.key,self.parent.key)
         
@@ -42,26 +36,30 @@ class BinarySearchTree:
         current=self.root
         while current is not None:
             if key == current.key:
-                return self.parent
+                return current
             elif key< current.key:
                 current=current.left
             else :
                 current=current.right
         return None
     
-    def _find_parent(self,key):
-        if self.root is None:
-            return
-        current=self.root
-        while current is not None:
-            if key==current.key:
-                print('$$$',current.parent.key,current.key)
-                return current.parent
-            if key< current.key:
-                current=current.left
-            else :
-                current=current.right
-       
+    def _find_parent(self, data):
+        parent = None
+        current = self.root
+        if current is None:
+            return parent
+        while True:
+            if current.key == data:   
+                break;
+            elif current.key > data:
+                parent = current
+                current = current.left
+            else:
+                parent = current
+                current = current.right
+        print('Parent=',parent.key)
+        return parent
+
                 
 
     def delete(self,key):
@@ -130,7 +128,7 @@ x.insert(84,84)
 x.insert(23,23)
 x.insert(37,37)
 #x.delete(100)
-x._find_parent(29)
+x._find_parent(100)
 x.preorder(x.root)
 
         
