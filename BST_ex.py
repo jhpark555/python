@@ -128,7 +128,8 @@ x.insert(84,84)
 x.insert(23,23)
 x.insert(37,37)
 #x.delete(100)
-x._find_parent(100)
 x.preorder(x.root)
+x._find_parent(100)
+
 
         
