@@ -1,5 +1,5 @@
 from collections import deque
-
+'''''
 graph =dict()
 graph['A']=['B','G','D']
 graph['B']=['A','F','E']
@@ -9,6 +9,19 @@ graph['E']=['B','G']
 graph['F']=['B','D','C']
 graph['G']=['A','E']
 graph['H']=['C']
+'''''
+graph = dict()
+graph['A'] = ['B', 'S']
+graph['B'] = ['A']
+graph['S'] = ['A','G','C']
+graph['D'] = ['C']
+graph['G'] = ['S','F','H']
+graph['H'] = ['G','E']
+graph['E'] = ['C','H']
+graph['F'] = ['C','G']
+graph['C'] = ['D','S','E','F']
+
+
 
 def breadth_first_search(graph,root):
     visited_vertices= list()
