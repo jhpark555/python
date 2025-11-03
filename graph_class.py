@@ -578,6 +578,25 @@ def find_articuation_points(g):
     return results
 
 
+
+def get_reachable(g,index):
+    seen=set()
+    pending=queue.Queue()
+
+    seen.add(index)
+    pending.put(index)
+
+    while not pending.empty():
+        current_index=pending.get()
+        current=g.nodes[current_index]
+        for edge in current.get_edge_list():
+            neighbor=edge.to_node
+            if neighbor not in seen:
+                pending.put(neighbor)
+                seen.add(neighbor)
+    return seen
+
+
 if __name__ == '__main__':
     g= Graph(10, True)
     g.insert_edge(0,1,1.0)
