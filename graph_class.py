@@ -597,6 +597,44 @@ def get_reachable(g,index):
     return seen
 
 
+def make_transpose_graph(g):
+    g2=Graph(g.num_nodes,undirected=g.undirected)
+    for node in g.nodes:
+        for edge in node.get_edge_list():
+            g2.insert_edge(edge.to_node,edge.from_node,edge.weight)
+    return g2
+
+
+def add_reachable(g,index,seen,reachable):
+    seen[index]=True
+    current=g.nodes[index]
+
+    for edge in current.get_edge_list():
+        if not seen[edge.to_node]:
+            add_reachable(g,edge.to_node,seen,reachable)
+    reachable.append(index)
+
+def kosaraju_sharir(g):
+    seen1=[False]*g.num_nodes
+    finish_ordered=[]
+    for ind in range(g.num_nodes):
+        if not seen1[ind]:
+            add_reachable(g,ind,seen1,finish_ordered)
+    gt=make_transpose_graph(g)
+    seen2=[False]*g.num_nodes
+    components=[]
+    while finish_ordered:
+        start=finish_ordered.pop()
+        if not seen2[start]:
+            new_component=[]
+            add_reachable(gt,start,seen2,new_component)
+            components.append(new_component)
+            #print('#',new_component)
+    return components
+
+
+
+
 if __name__ == '__main__':
     g= Graph(10, True)
     g.insert_edge(0,1,1.0)
@@ -676,3 +714,19 @@ if __name__ == '__main__':
 
     r=find_articuation_points(g)
     print("AR point=",r)
+
+
+    gr= Graph(6, True)
+    gr.insert_edge(0,2,1.0)
+    gr.insert_edge(2,3,1.0)
+    gr.insert_edge(3,5,1.0)
+    gr.insert_edge(4,5,1.0)
+    gr.insert_edge(5,4,1.0)
+    gr.insert_edge(3,0,1.0)
+
+
+    r=kosaraju_sharir(gr)
+    print("***********")
+    for i in r:
+        print(i);
+   
