@@ -53,6 +53,22 @@ class Node:
         for n in neighbors:
             result.append(self.edges[n])
         return result
+    
+class CapacityEdge:
+    def __init__(self,from_node,to_node ,capacity):
+        self.from_node=from_node
+        self.to_node=to_node
+        self.capacity=capacity
+        self.used=0.0
+    def adjust_used(self,amount):
+        if self.used+amount<0.0 or self.used+amount>   self.capacity:
+            raise Exception("Capacity Error:")
+        self.used +=amount
+    def capacity_left(self):
+        return self.capacity-self.used
+    def flow_used(self):
+        return self.used
+    
         
 class Graph:
     def __init__(self,num_nodes,undirected=False):
@@ -139,6 +155,16 @@ class GraphMatrix:
         self.connections[from_node][to_node]=weight
         if self.undirected:
             self.connections[to_node][from_node]=weight
+
+    def simulate_radnom_step(self,Vt):
+        if len(Vt)!=self.num_nodes:
+            raise ValueError("Incorrecr length probability dist")
+        Vnext=[0.0]*self.num_nodes
+        for i in range(self.num_nodes):
+            for j in range(self.num_nodes):
+                Vnext[j] +=Vt[i] * self.connections[i][j]
+        return Vnext
+    
             
 
 
