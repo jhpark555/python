@@ -69,6 +69,81 @@ class CapacityEdge:
     def flow_used(self):
         return self.used
     
+class ResidualGraph:
+    def __init__(self,num_nodes,source_index,sink_index):
+        self.num_nodes=num_nodes
+        self.source_index=source_index
+        self.sink_index=sink_index
+        self.edges=[{} for _ in range(num_nodes)]
+        self.all_neighbors=[set() for _ in range(num_nodes)]
+    def get_edge(self,from_node,to_node):
+        if from_node<0 or from_node>=self.num_nodes:
+            raise IndexError
+        if to_node<0 or to_node>=self.num_nodes:
+            raise IndexError
+        if to_node in self.edges[from_node]:
+            return self.edges[from_node][to_node]
+        return None
+    def insert_edge(self,from_node,to_node,capacity):
+        if from_node<0 or from_node>=self.num_nodes:
+            raise IndexError
+        if to_node<0 or to_node>=self.num_nodes:
+            raise IndexError
+        
+        if from_node==self.sink_index:
+            raise ValueError("Tried to insert edge From Sink node")
+        if to_node==self.source_index:
+            raise ValueError("Tried to insert edge To Source node")
+        if from_node in self.edges[to_node]:
+            raise ValueError(f"Tried to insert edge{from_node}->{to_node}," 
+                             f"edge {to_node}->{from_node} already exist.")
+        if capacity<=0:
+            raise ValueError(f"Tried to insert capacity {capacity}")
+        
+        self.edges[from_node][to_node]=CapacityEdge(from_node,to_node,capacity)
+        self.all_neighbors[from_node].add(to_node)
+        self.all_neighbors[to_node].add(from_node)
+
+    def compute_total_flow(self):
+        total_flow=0.0
+        for to_node in self.edges[self.source_index]:
+            total_flow +=self.edges[self.soure_index][to_node].flow_used()
+        return total_flow
+    
+    def get_residual(self,from_node,to_node):
+        if to_node not in self.all_neighbors[from_node]:
+            return 0
+        if to_node in self.edges[from_node]:
+            return self.edges[from_node][to_node].capacity_left()
+        else :
+            return self.edges[to_node][from_node].flow_used()
+        
+    def min_residual_on_path(self,last):
+        min_val=math.inf
+        current= self.sink_index
+        while current!=self.source_index:
+            prev=last[current]
+            if prev==-1:
+                raise ValueError
+            min_val=min(min_val,self.get_residual(prev,current))
+            current=prev
+        return min_val
+    def update_along_path(self,last,amount):
+        current=self.sink_index
+        while current !=self.source_index:
+            prev =last[current]
+            if prev-1:
+                raise ValueError
+            if current in self.edges[prev]:
+                self.edges[prev][current].adjust_used(amount)
+            else :
+                self.edges[current][prev].adjust_used(-amount)
+            current=prev
+
+
+
+
+    
         
 class Graph:
     def __init__(self,num_nodes,undirected=False):
@@ -659,6 +734,40 @@ def kosaraju_sharir(g):
     return components
 
 
+def find_augmenting_path_dfs(g:ResidualGraph)->list:
+    seen=[False]*g.num_nodes
+    last=[-1]*g.num_nodes
+    augmenting_path_dfs_recursive(g,g.source_index,seen,last)
+    return last
+
+def augmenting_path_dfs_recursive(g,current,seen,last):
+    seen[current]=True
+    for n in g.all_neighbors[current]:
+        if not seen[n] and g.get_residual(current,n) >0:
+            last[n]=current
+            if last[g.sink_index] !=-1:
+                return
+            augmenting_path_dfs_recursive(g,n,seen,last)
+
+
+
+def ford_fulkerson(g,source,sink):
+    residual=ResidualGraph(g.num_nodes,source,sink)
+    for node in g.nodes:
+        for edge in node.edges.value():
+            residual.insert_edge(edge.from_node,edge.to_node,edge.weight)
+    done=False
+    while not done:
+        last=find_augmenting_path_dfs(residual)
+        if last[sink]>-1:
+            min_valuse=residual.min_residual_on_path(last)
+            residual.update_along_path(last,min_valuse)
+        else:
+            done=True
+    return residual
+
+        
+        
 
 
 if __name__ == '__main__':
