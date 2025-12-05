@@ -767,7 +767,42 @@ def ford_fulkerson(g,source,sink):
     return residual
 
         
-        
+
+def bipartite_labeling(g):
+    label=[None]*g.num_nodes
+    pending= queue.Queue()
+
+    for start in range(g.num_nodes):
+        if label[start] is not None:
+            continue
+        pending.put(start)
+        label[start]=True
+        while not pending.empty():
+            current= pending.get()
+            next_label=not label[current]
+
+            for edge in g.num_nodes[current].get_edge_list():
+                neighbor=edge.to_node
+                if label[neighbor] is None:
+                    pending.put(neighbor)
+                    label[neighbor]=next_label
+                elif label[neighbor]!=next_label:
+                    return Node
+    return label
+
+
+
+def is_graph_coloring_valid(g):
+    for node in g.nodes:
+        if node.label is None:
+            return False
+        for edge in node.get_edge_list():
+            neighbor =g.nodes[edge.to_node]
+            if neighbor.label==node.label:
+                return False
+    return True
+
+
 
 
 if __name__ == '__main__':
